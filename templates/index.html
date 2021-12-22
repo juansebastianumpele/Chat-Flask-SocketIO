@@ -1,0 +1,33 @@
+<html>
+<head>
+<title>Chat</title>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.4.8/socket.io.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+</head>
+<script type="text/javascript">
+$(document).ready(function() {
+
+	var socket = io.connect('http://127.0.0.1:5000');
+
+	socket.on('connect', function() {
+		socket.send('Terhubung');
+	});
+
+	socket.on('message', function(psn) {
+		$("#pesann").append('<li>'+psn+'</li>');
+		console.log('Pesan diterima');
+	});
+
+	$('#tombolkirim').on('click', function() {
+		socket.send($('#isipesan').val());
+		$('#isipesan').val('');
+	});
+
+});
+</script>
+<h3> Program chat sederhana menggunakan menggunakan Flask Socket IO</h3>
+<input type="text" id="isipesan">
+<button id="tombolkirim">Kirim</button>
+<ul id="pesann"><ul/>
+</body>
+</html>
